@@ -63,4 +63,21 @@ public class MensagemController {
 
 		return new ResponseEntity<Mensagem>(mensagem, HttpStatus.OK);
 	}
+	
+	@PutMapping("responder/{id}")
+	public ResponseEntity<Mensagem> responder(
+			@PathVariable long id, @RequestBody Mensagem mensagem) {
+
+		Mensagem _mensagem = mensagemService.responder(id, mensagem);
+
+		return new ResponseEntity<Mensagem>(_mensagem, HttpStatus.OK);
+	}
+	
+	@PutMapping("marcarComoLida/{id}")
+	public ResponseEntity<Mensagem> marcarComoLida(@PathVariable long id) {
+
+		Mensagem mensagem = mensagemService.update(id);
+
+		return new ResponseEntity<Mensagem>(mensagem, HttpStatus.OK);
+	}
 }

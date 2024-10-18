@@ -55,6 +55,21 @@ public class MensagemService {
 		}
 		
 		@Transactional
+		public Mensagem responder(long id, Mensagem mensagem) {
+			Optional<Mensagem> _mensagem = mensagemRepository.findById(id);
+			
+			if (_mensagem.isPresent()) {
+				Mensagem mensagemAtualizada = _mensagem.get();
+				mensagemAtualizada.setDataResposta(LocalDateTime.now());
+				mensagemAtualizada.setResposta(mensagem.getResposta());
+				mensagemAtualizada.setStatusMensagem("RESPONDIDA");
+				
+				return mensagemRepository.save(mensagemAtualizada);
+			}
+			return null;
+		}
+		
+		@Transactional
 		public Mensagem inativar(long id) {
 			Optional<Mensagem> _mensagem = mensagemRepository.findById(id);
 			
